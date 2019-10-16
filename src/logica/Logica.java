@@ -1,4 +1,4 @@
-package DAM.logica;
+package logica;
 
 import DAM.models.Partido;
 import javafx.collections.FXCollections;

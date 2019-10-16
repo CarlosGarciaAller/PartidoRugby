@@ -49,10 +49,9 @@ public class PantallaPrincipal extends Application {
         TableColumn<String, Partido> column5 = new TableColumn<>("Fecha");
         column5.setCellValueFactory(new PropertyValueFactory<>("fecha"));
 
-        tablaPartidos.getColumns().addAll(column1, column2, column3, column4);
+        tablaPartidos.getColumns().addAll(column1, column2, column3, column4, column5);
 
-        //Button buttonAlta = new Button("Alta");
-        Button buttonAlta = null;
+        Button buttonAlta = new Button("Alta");
         AnchorPane.setBottomAnchor(buttonAlta,10d);
         AnchorPane.setLeftAnchor(buttonAlta,10d);
 
@@ -65,7 +64,7 @@ public class PantallaPrincipal extends Application {
         AnchorPane.setLeftAnchor(buttonModificar,70d);
 
         AnchorPane anchorPane = new AnchorPane(tablaPartidos, buttonAlta, buttonBorrar, buttonModificar);
-        Scene scene = new Scene(anchorPane,200,200);
+        Scene scene = new Scene(anchorPane,500,500);
         stage.setScene(scene);
         stage.show();
 

@@ -23,8 +23,7 @@ public class DialogoPartido extends Stage {
     private TextField tfVisitante;
     private TextField tfDivision;
     private TextField tfResultado;
-    //private DateTimeFormatter format = new DateTimeFormatter.ofPattern( "dd-MM-yyyy");
-    private DatePicker dtFecha;
+    private DatePicker dpFecha;
 
     private Button botonAceptar;
 
@@ -48,7 +47,7 @@ public class DialogoPartido extends Stage {
         tfVisitante.setText(partido.getVisitante());
         tfDivision.setText(partido.getDivision());
         tfResultado.setText(partido.getResultado());
-        //dtFecha.setDate(format.parse(partido.getFecha());
+        dpFecha.setValue(partido.getFecha());
 
         botonAceptar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -89,15 +88,18 @@ public class DialogoPartido extends Stage {
         tfDivision = new TextField();
         Label resultado = new Label("Resultado");
         tfResultado = new TextField();
+        Label fecha = new Label("Fecha");
+        dpFecha = new DatePicker();
         botonAceptar = new Button("Aceptar");
 
         VBox vBox = new VBox(local,tfLocal,
                 visitante,tfVisitante,
                 division,tfDivision,
                 resultado,tfResultado,
+                fecha,dpFecha,
                 botonAceptar);
 
-        Scene scenePartido = new Scene(vBox, 200,200);
+        Scene scenePartido = new Scene(vBox, 500,500);
         setScene(scenePartido);
     }
 }
