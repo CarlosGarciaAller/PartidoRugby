@@ -1,6 +1,6 @@
 package logica;
 
-import DAM.models.Partido;
+import models.Partido;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,7 +9,7 @@ public class Logica {
     private ObservableList<Partido> listaPartidos;
 
     private Logica(){
-        ObservableList<Partido> listaPartidos = FXCollections.observableArrayList();
+        listaPartidos = FXCollections.observableArrayList();
     }
 
     public static Logica getInstance(){
@@ -25,10 +25,6 @@ public class Logica {
 
     public void addPartido(Partido partido){
         listaPartidos.add(partido);
-    }
-
-    public ObservableList<Partido> getListaPartido(){
-        return listaPartidos;
     }
 
     public void borrarPartido(int pos){

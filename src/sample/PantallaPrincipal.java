@@ -1,7 +1,5 @@
 package sample;
 
-import DAM.logica.Logica;
-import DAM.models.Partido;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,24 +9,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import logica.Logica;
+import models.Partido;
 
 import java.text.ParseException;
 
 public class PantallaPrincipal extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception {
-        /*
-        SimpleDateFormat format = new SimpleDateFormat( "dd-MM-yyyy");
-        Partido partido1 = new Partido("Real Oviedo", "Sporting", "segunda", 2, format.parse("02-12-2001"));
-        Partido partido2 = new Partido("Aviles","Llanes","segunda",2, format.parse("02-12-2001"));
-        listaPartidos.add(partido1);
-        listaPartidos.add(partido2);*/
-
+    public void start(Stage stage) {
         stage.setTitle("Gestión de partidos");
-        TableView tablaPartidos = new TableView();
+        TableView tablaPartidos = new TableView(Logica.getInstance().getListaPartidos());
         AnchorPane.setTopAnchor(tablaPartidos,10d);
         AnchorPane.setLeftAnchor(tablaPartidos,10d);
         AnchorPane.setRightAnchor(tablaPartidos,10d);
@@ -74,6 +66,7 @@ public class PantallaPrincipal extends Application {
                 DialogoPartido dialogoPartido = null;
                 try {
                     dialogoPartido = new DialogoPartido();
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -84,6 +77,7 @@ public class PantallaPrincipal extends Application {
         buttonBorrar.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent) {
+                System.out.println("Introduce el indice de ");
                 int id = tablaPartidos.getSelectionModel().getSelectedIndex();
                 if (id>=0)
                     Logica.getInstance().borrarPartido(id);
@@ -94,14 +88,10 @@ public class PantallaPrincipal extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 int i = tablaPartidos.getSelectionModel().getSelectedIndex();
-                Partido selectPartido = Logica.getInstance().getListaPersonas().get(i);
-                DialogoPartido dialogoPersona = null;
-                try {
-                    dialogoPersona = new DialogoPartido(selectPartido,i);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                dialogoPersona.show();
+                Partido selectPartido = Logica.getInstance().getListaPartidos().get(i);
+                DialogoPartido dialogoPartido = null;
+                dialogoPartido = new DialogoPartido(selectPartido,i);
+                dialogoPartido.show();
             }
         });
     }

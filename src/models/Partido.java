@@ -1,15 +1,13 @@
-package DAM.models;
-
-import java.util.Date;
+package models;
 
 public class Partido {
     private String local;
     private String visitante;
     private String division;
     private String resultado;
-    private Date fecha;
+    private String fecha;
 
-    public Partido (String local, String visitante, String division, String resultado, Date fecha){
+    public Partido (String local, String visitante, String division, String resultado, String fecha){
         this.local = local;
         this.visitante = visitante;
         this.division = division;
@@ -49,11 +47,11 @@ public class Partido {
         this.resultado = resultado;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

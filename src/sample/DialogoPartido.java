@@ -1,7 +1,5 @@
 package sample;
 
-import DAM.logica.Logica;
-import DAM.models.Partido;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -12,9 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import logica.Logica;
+import models.Partido;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DialogoPartido extends Stage {
@@ -24,7 +24,6 @@ public class DialogoPartido extends Stage {
     private TextField tfDivision;
     private TextField tfResultado;
     private DatePicker dpFecha;
-
     private Button botonAceptar;
 
     public DialogoPartido() throws ParseException {
@@ -32,51 +31,42 @@ public class DialogoPartido extends Stage {
         botonAceptar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                try {
-                    añadirPartido();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                añadirPartido();
             }
         });
     }
 
-    public DialogoPartido(Partido partido,int posicion) throws ParseException {
+    public static final LocalDate LOCAL_DATE (String dateString){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        return localDate;
+    }
+
+    public DialogoPartido(Partido partido,int posicion) {
         inicializaVista();
         tfLocal.setText(partido.getLocal());
         tfVisitante.setText(partido.getVisitante());
         tfDivision.setText(partido.getDivision());
         tfResultado.setText(partido.getResultado());
-        dpFecha.setValue(partido.getFecha());
+        dpFecha.setValue(LOCAL_DATE(partido.getFecha()));
 
         botonAceptar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String local = tfLocal.getText();
-                String visitante = tfVisitante.getText();
-                String division = tfDivision.getText();
-                String resultado = tfResultado.getText();
-                SimpleDateFormat format = new SimpleDateFormat( "dd-MM-yyyy");
-                Partido partidoM = null;
-                try {
-                    partidoM = new Partido(local,visitante,division,resultado,format.parse("02-12-2001"));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                Partido partidoM = new Partido(tfLocal.getText(),tfVisitante.getText(),tfDivision.getText(),tfResultado.getText(), dpFecha.getValue().toString());
                 Logica.getInstance().modificarPartido(partidoM,posicion);
                 close();
             }
         });
     }
 
-    private void añadirPartido() throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat( "dd-MM-yyyy");
-        Partido partido = new Partido(tfLocal.getText(), tfVisitante.getText(), tfDivision.getText(), tfResultado.getText(), format.parse("02-12-2001"));
+    private void añadirPartido() {
+        Partido partido = new Partido(tfLocal.getText(), tfVisitante.getText(), tfDivision.getText(), tfResultado.getText(), dpFecha.getValue().toString());
         Logica.getInstance().addPartido(partido);
         close();
     }
 
-    public void inicializaVista() throws ParseException {
+    public void inicializaVista(){
         initModality(Modality.APPLICATION_MODAL);
         setTitle("Alta partido");
 
