@@ -19,7 +19,7 @@ public class Logica {
         return INSTANCE;
     }
 
-    public ObservableList<Partido> getListaPersonas() {
+    public ObservableList<Partido> getListaPartidos() {
         return listaPartidos;
     }
 
