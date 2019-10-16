@@ -27,7 +27,7 @@ public class DialogoPartido extends Stage {
     private Button botonAceptar;
 
     public DialogoPartido() throws ParseException {
-        inicializaVista();
+        formularioPartido();
         botonAceptar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -43,7 +43,8 @@ public class DialogoPartido extends Stage {
     }
 
     public DialogoPartido(Partido partido,int posicion) {
-        inicializaVista();
+        //modificacion del partido
+        formularioPartido();
         tfLocal.setText(partido.getLocal());
         tfVisitante.setText(partido.getVisitante());
         tfDivision.setText(partido.getDivision());
@@ -66,7 +67,7 @@ public class DialogoPartido extends Stage {
         close();
     }
 
-    public void inicializaVista(){
+    public void formularioPartido(){
         initModality(Modality.APPLICATION_MODAL);
         setTitle("Alta partido");
 
